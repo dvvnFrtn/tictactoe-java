@@ -67,6 +67,7 @@ public class tictactoe {
 
     /**
      * Method untuk mengecek adanya tempat yang kosong.
+     * @return true apabila terdapat ' ' pada array.
      */
     private static Boolean hasEmptySpot(char[][] board){
         for (int i = 0; i< board.length; i++) {
@@ -81,6 +82,7 @@ public class tictactoe {
 
     /**
      * Method untuk mengecek adanya pemenang.
+     * @return true apabila terdapat salah satu pemenenang.
      */
     private static Boolean hasWinner(char[][] board){
         return (board[0][0] == board [0][1] && board[0][0] == board [0][2] && board[0][0]!=' ') ||
