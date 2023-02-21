@@ -19,14 +19,8 @@ public class tictactoe {
         while (hasEmptySpot(board) && !hasWinner(board)) {
             
             displayBoard(board);
-            //mengantisipasi input user yang tidak sesuai
-            try {
-                readInput(board,player);
-            } catch (Exception e) {
-                clrscr();
-                System.out.println("Masukkan baris dan kolom dengan benar ! (1-3)");
-                continue;
-            }
+            readInput(board, player);
+            
             //menentukan hasil
             if (hasWinner(board)) {
                 result += "~ Player " + player + " memenangkan permaianan ~";
@@ -55,13 +49,13 @@ public class tictactoe {
         int row = in.nextInt();
         System.out.print("kolom : ");
         int col = in.nextInt();
-        if (board[row-1][col-1] == ' '){ //kondisi ketika tempat belum diisi
-            board[row-1][col-1] = player;
-        } else { //kondisi ketika tempat telah diisi
+        if (row > 3 || col > 3) {
             clrscr();
-            System.out.println("Tempat telah terisi !");
             displayBoard(board);
+            System.out.println("Masukkan input dengan benar (1 - 3) !");
             readInput(board, player);
+        } else {
+            board[row-1][col-1] = player;
         }
     }
 
