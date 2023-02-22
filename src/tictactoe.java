@@ -10,28 +10,32 @@ public class tictactoe {
         char player = 'X';
         String result = "";
 
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
             }
         }
 
+        System.out.println("----------------------------------");
+        System.out.println("            TICTACTOE             ");
+        System.out.println("----------------------------------");
+
         while (hasEmptySpot(board) && !hasWinner(board)) {
-            
+
             displayBoard(board);
             readInput(board, player);
             
             //menentukan hasil
             if (hasWinner(board)) {
-                result += "~ Player " + player + " memenangkan permaianan ~";
+                result += "Player " + player + " memenangkan permaianan !";
             } else if(!hasEmptySpot(board)) {
-                result += "~~ Permainan berakhir imbang ~~";
+                result += "Permainan berakhir imbang !";
             }
             //ganti player
             if (player == 'O') player = 'X';
             else player = 'O';
             
-            clrscr();
+            cls();
         }
 
         //hasil akhir
@@ -50,9 +54,14 @@ public class tictactoe {
         System.out.print("kolom : ");
         int col = in.nextInt();
         if (row > 3 || col > 3) {
-            clrscr();
+            cls();
             displayBoard(board);
             System.out.println("Masukkan input dengan benar (1 - 3) !");
+            readInput(board, player);
+        } else if (board[row-1][col-1] != ' ') {
+            cls();
+            displayBoard(board);
+            System.out.println("Tempat sudah terisi !");
             readInput(board, player);
         } else {
             board[row-1][col-1] = player;
@@ -79,14 +88,14 @@ public class tictactoe {
      * @return true apabila terdapat salah satu pemenenang.
      */
     private static Boolean hasWinner(char[][] board){
-        return (board[0][0] == board [0][1] && board[0][0] == board [0][2] && board[0][0]!=' ') ||
-            (board[0][0] == board [1][1] && board[0][0] == board [2][2] && board[0][0]!=' ') ||
-            (board[0][0] == board [1][0] && board[0][0] == board [2][0] && board[0][0]!=' ') ||
-            (board[2][0] == board [2][1] && board[2][0] == board [2][2] && board[2][0]!=' ') ||
-            (board[2][0] == board [1][1] && board[0][0] == board [0][2] && board[2][0]!=' ') ||
-            (board[0][2] == board [1][2] && board[0][2] == board [2][2] && board[0][2]!=' ') ||
-            (board[0][1] == board [1][1] && board[0][1] == board [2][1] && board[0][1]!=' ') ||
-            (board[1][0] == board [1][1] && board[1][0] == board [1][2] && board[1][0]!=' ');
+        return (board[0][0] == board [0][1] && board[0][0] == board [0][2] && board[0][0]!=' '&&board[0][1]!=' '&&board[0][2]!=' ') ||
+            (board[0][0] == board [1][1] && board[0][0] == board [2][2] && board[0][0]!=' '&&board[1][1]!=' '&&board[0][2]!=' ') ||
+            (board[0][0] == board [1][0] && board[0][0] == board [2][0] && board[0][0]!=' '&&board[1][0]!=' '&&board[2][0]!=' ') ||
+            (board[2][0] == board [2][1] && board[2][0] == board [2][2] && board[2][0]!=' '&&board[2][1]!=' '&&board[2][2]!=' ') ||
+            (board[2][0] == board [1][1] && board[0][0] == board [0][2] && board[2][0]!=' '&&board[1][1]!=' '&&board[0][2]!=' ') ||
+            (board[0][2] == board [1][2] && board[0][2] == board [2][2] && board[0][2]!=' '&&board[1][2]!=' '&&board[2][2]!=' ') ||
+            (board[0][1] == board [1][1] && board[0][1] == board [2][1] && board[0][1]!=' '&&board[1][1]!=' '&&board[2][1]!=' ') ||
+            (board[1][0] == board [1][1] && board[1][0] == board [1][2] && board[1][0]!=' '&&board[1][1]!=' '&&board[1][2]!=' ');
     }
 
     /**
@@ -111,7 +120,7 @@ public class tictactoe {
     /**
      * Method untuk merefresh console.
      */
-    private static void clrscr(){
+    private static void cls(){
         try {
             if (System.getProperty("os.name").contains("Windows"))
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
